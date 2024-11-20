@@ -68,9 +68,9 @@ def visualizarExp(listaExp):
         print('No hay investigaciones registradas...')
         return
     
-    data = []
+    datos = []
     for i, investigacion in enumerate(listaExp, start=1):
-        data.append([
+        datos.append([
             i,
             investigacion.nombreExp,
             investigacion.fechaRealizacion.strftime("%d/%m/%Y"),
@@ -81,7 +81,7 @@ def visualizarExp(listaExp):
     headers = ["#", "Nombre", "Fecha", "Tipo", "Resultados"]
 
     print("\nInvestigaciones Registradas:")
-    print(tabulate(data, headers=headers, tablefmt="grid"))
+    print(tabulate(datos, headers=headers, tablefmt="grid"))
 
         
 def analizarResultados(listaExp):
@@ -89,16 +89,16 @@ def analizarResultados(listaExp):
         print('No hay investigaciones registradas...')
         return
     
-    datos =[]
+    datos = []
     for investigacion in listaExp:
         promedio = statistics.mean(investigacion.resultados)
         maximo = max(investigacion.resultados)
         minimo = min(investigacion.resultados)
         datos.append([
             investigacion.nombreExp,
-            investigacion.fechaRealizacion.strftime('%d/%m/Y'),
+            investigacion.fechaRealizacion.strftime('%d/%m/%Y'),
             investigacion.tipoExp,
-            f'{promedio:.2}',
+            f'{promedio:.2f}',  # Formato correcto para 2 decimales
             maximo,
             minimo
         ])
@@ -107,6 +107,33 @@ def analizarResultados(listaExp):
 
     print("\nAnálisis de Resultados:")
     print(tabulate(datos, headers=headers, tablefmt="grid"))
+
+
+def compararResultados(listaExp):
+    if not listaExp:
+        print('No hay investigaciones registradas...')
+        return
+    
+    datos = []
+    for i, investigacion in enumerate(listaExp, start=1):
+        promedio = statistics.mean(investigacion.resultados)
+        maximo = max(investigacion.resultados)
+        minimo = min(investigacion.resultados)
+        
+        datos.append([
+            i,
+            investigacion.nombreExp,
+            investigacion.tipoExp,
+            round(promedio, 2),
+            maximo,
+            minimo
+        ])
+    
+    headers = ["#", "Nombre", "Tipo", "Promedio", "Máximo", "Mínimo"]
+
+    print("\nComparación de Resultados:")
+    print(tabulate(datos, headers=headers, tablefmt="grid"))
+        
         
 def generarInf(listaExp):
     if not listaExp:
@@ -130,8 +157,9 @@ def menu():
         print('2. Ver investigaciones')
         print('3. Eliminar investigaciones')
         print('4. Analizar resultados')
-        print('5. Generar informe')
-        print('6. Salir')
+        print('5. Compara resultados')
+        print('6. Generar informe')
+        print('7. Salir')
         
         opcion = input('Seleccione una opción: ')
 
@@ -144,8 +172,10 @@ def menu():
         elif opcion == '4':
             analizarResultados(listaExp)
         elif opcion == '5':
-            generarInf(listaExp)
+            compararResultados(listaExp)
         elif opcion == '6':
+            generarInf(listaExp)
+        elif opcion == '7':
             print('Saliendo del programa...')
             break
         else:
