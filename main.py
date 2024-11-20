@@ -1,5 +1,7 @@
+from tabulate import tabulate
 from datetime import datetime
 import statistics
+
 
 class Invetigacion:
     def __init__(self, nombreExp, fechaRealizacion, tipoExp, resultados):
@@ -59,32 +61,80 @@ def eliminarEXP(listaExp):
     print(f'No se encontró una investigazión con el nombre {nombreExp}...')
 
 
+from tabulate import tabulate
+
 def visualizarExp(listaExp):
     if not listaExp:
         print('No hay investigaciones registradas...')
         return
     
+    datos = []
     for i, investigacion in enumerate(listaExp, start=1):
-        print(f'\nInvestigacion {i}')
-        print(f'Nombre de la investigación: {investigacion.nombreExp} ')
-        print(f'Fecha de realización: {investigacion.fechaRealizacion.strftime("%d/%m/%Y")}')
-        print(f'Tipo del experimento: {investigacion.tipoExp}')
-        print(f'Resultados: {investigacion.resultados}')
+        datos.append([
+            i,
+            investigacion.nombreExp,
+            investigacion.fechaRealizacion.strftime("%d/%m/%Y"),
+            investigacion.tipoExp,
+            ", ".join(map(str, investigacion.resultados))  # Convertimos los resultados a cadenas
+        ])
+
+    headers = ["#", "Nombre", "Fecha", "Tipo", "Resultados"]
+
+    print("\nInvestigaciones Registradas:")
+    print(tabulate(datos, headers=headers, tablefmt="grid"))
+
         
 def analizarResultados(listaExp):
     if not listaExp:
         print('No hay investigaciones registradas...')
         return
     
+    datos = []
     for investigacion in listaExp:
         promedio = statistics.mean(investigacion.resultados)
         maximo = max(investigacion.resultados)
         minimo = min(investigacion.resultados)
-        print(f'\nAnálisis de resultados')
-        print(f'Promedio de resultados: {promedio}')
-        print(f'Máximo de resultados: {maximo}')
-        print(f'Mínimo de resultados: {minimo}')
+        datos.append([
+            investigacion.nombreExp,
+            investigacion.fechaRealizacion.strftime('%d/%m/%Y'),
+            investigacion.tipoExp,
+            f'{promedio:.2f}',  # Formato correcto para 2 decimales
+            maximo,
+            minimo
+        ])
+        
+    headers = ["Nombre", "Fecha", "Tipo", "Promedio", "Máximo", "Mínimo"]
 
+    print("\nAnálisis de Resultados:")
+    print(tabulate(datos, headers=headers, tablefmt="grid"))
+
+
+def compararResultados(listaExp):
+    if not listaExp:
+        print('No hay investigaciones registradas...')
+        return
+    
+    datos = []
+    for i, investigacion in enumerate(listaExp, start=1):
+        promedio = statistics.mean(investigacion.resultados)
+        maximo = max(investigacion.resultados)
+        minimo = min(investigacion.resultados)
+        
+        datos.append([
+            i,
+            investigacion.nombreExp,
+            investigacion.tipoExp,
+            round(promedio, 2),
+            maximo,
+            minimo
+        ])
+    
+    headers = ["#", "Nombre", "Tipo", "Promedio", "Máximo", "Mínimo"]
+
+    print("\nComparación de Resultados:")
+    print(tabulate(datos, headers=headers, tablefmt="grid"))
+        
+        
 def generarInf(listaExp):
     if not listaExp:
         print('No hay investigaciones registradas...')
@@ -107,8 +157,9 @@ def menu():
         print('2. Ver investigaciones')
         print('3. Eliminar investigaciones')
         print('4. Analizar resultados')
-        print('5. Generar informe')
-        print('6. Salir')
+        print('5. Compara resultados')
+        print('6. Generar informe')
+        print('7. Salir')
         
         opcion = input('Seleccione una opción: ')
 
@@ -121,8 +172,10 @@ def menu():
         elif opcion == '4':
             analizarResultados(listaExp)
         elif opcion == '5':
-            generarInf(listaExp)
+            compararResultados(listaExp)
         elif opcion == '6':
+            generarInf(listaExp)
+        elif opcion == '7':
             print('Saliendo del programa...')
             break
         else:

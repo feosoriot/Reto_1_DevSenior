@@ -43,7 +43,7 @@ def menu():
     print('3. Visualizar expermentos')
     print('=====Analisis de datos=====')
     print('4. Calcular estadisticas')
-    print('5. Compara estadisticas')
+    print('5. Comparar estadisticas')
     print('=====Informes====')
     print('6. Generar informe')
     print('======Salir=====')
