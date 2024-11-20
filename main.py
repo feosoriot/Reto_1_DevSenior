@@ -43,6 +43,21 @@ def agregarExp(listaExp):
     investigacion = Invetigacion(nombreExp, fechaRealizacion, tipoExp, resultados)
     listaExp.append(investigacion)
     print('Investigacion agregada con exito...')
+    
+
+def eliminarEXP(listaExp):
+    if not listaExp:
+        print('No hay investigaciones registradas...')
+        return
+    
+    nombreExp = input('Ingrese el nombre del experimento que desea eliminar: ')
+    for invetigacion in listaExp:
+        if invetigacion.nombreExp == nombreExp:
+            listaExp.remove(invetigacion)
+            print(f'La investigazión {nombreExp} ha sido eliminada con éxito...')
+    
+    print(f'No se encontró una investigazión con el nombre {nombreExp}...')
+
 
 def visualizarExp(listaExp):
     if not listaExp:
@@ -90,9 +105,10 @@ def menu():
         print('\nMenu de opciones')
         print('1. Agregar investigación')
         print('2. Ver investigaciones')
-        print('3. Analizar resultados')
-        print('4. Generar informe')
-        print('5. Salir')
+        print('3. Eliminar investigaciones')
+        print('4. Analizar resultados')
+        print('5. Generar informe')
+        print('6. Salir')
         
         opcion = input('Seleccione una opción: ')
 
@@ -101,10 +117,12 @@ def menu():
         elif opcion == '2':
             visualizarExp(listaExp)
         elif opcion == '3':
-            analizarResultados(listaExp)
+            eliminarEXP(listaExp)
         elif opcion == '4':
-            generarInf(listaExp)
+            analizarResultados(listaExp)
         elif opcion == '5':
+            generarInf(listaExp)
+        elif opcion == '6':
             print('Saliendo del programa...')
             break
         else:
