@@ -115,22 +115,36 @@ def compararResultados(listaExp):
     if not listaExp:
         print('No hay investigaciones registradas...')
         return
+    print("Seleccione el tipo de experimento a comparar:")
+    print("1. Química")
+    print("2. Física")
+    print("3. Biología")
+    tipoExp = input("Ingrese el número correspondiente al tipo de experimento: ")
 
+    if tipoExp == '1':
+        tipoExp = 'Química'
+    elif tipoExp == '2':
+        tipoExp = 'Física'
+    elif tipoExp == '3':
+        tipoExp = 'Biología'
     elMenor=100000000
     for i, investigacion in enumerate(listaExp, start=1):
-        promedio = statistics.mean(investigacion.resultados)
-        maximo = max(investigacion.resultados)
-        minimo = min(investigacion.resultados)
-        desviacionr=statistics.stdev(investigacion.resultados)
-        if desviacionr<=elMenor:
-            elMenor=desviacionr
-            elPromedio=promedio
-            elMinimo=minimo
-            eLmaximo=maximo
-            elNumero=i
-            elNombre=investigacion.nombreExp,
-            laFeha=investigacion.fechaRealizacion.strftime('%d/%m/%Y'),
-            elTipo=investigacion.tipoExp,
+        if tipoExp==investigacion.tipoExp:
+            promedio = statistics.mean(investigacion.resultados)
+            maximo = max(investigacion.resultados)
+            minimo = min(investigacion.resultados)
+            desviacionr=statistics.stdev(investigacion.resultados)
+            if desviacionr<=elMenor:
+                elMenor=desviacionr
+                elPromedio=promedio
+                elMinimo=minimo
+                eLmaximo=maximo
+                elNumero=i
+                elNombre=investigacion.nombreExp,
+                laFeha=investigacion.fechaRealizacion.strftime('%d/%m/%Y'),
+                elTipo=investigacion.tipoExp
+        else:
+            print('No hay registros para este tipo')
     print(f'el dato con mejor desviación estandar es :')
     print(f'{elNumero} Nombre : {elNombre} fecha : {laFeha} tipo: {elTipo}')
     print(f'Promedio : {elPromedio}\n maximo : {eLmaximo} minimo : {elMinimo} desviacion : {elMenor}')
