@@ -98,7 +98,7 @@ def analizarResultados(listaExp):
             investigacion.nombreExp,
             investigacion.fechaRealizacion.strftime('%d/%m/%Y'),
             investigacion.tipoExp,
-            f'{promedio:.2f}',  # Formato correcto para 2 decimales
+            f'{promedio:.2f}', 
             maximo,
             minimo
         ])
