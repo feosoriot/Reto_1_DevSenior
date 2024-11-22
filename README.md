@@ -36,7 +36,8 @@ Este es un proyecto creado en Python para la geestoion de de experimentos, en el
 
 1. Ejecutar el archivo main.py para iniciar el programa.
 2. Al iniciar el archivo main.py podemos ver el suguiente menu: 
-        [![Captura-de-pantalla-2024-11-22-202226.png](https://i.postimg.cc/MHyqnZ6n/Captura-de-pantalla-2024-11-22-202226.png)](https://postimg.cc/SYNw5hz4)
+
+    [![Captura-de-pantalla-2024-11-22-202226.png](https://i.postimg.cc/MHyqnZ6n/Captura-de-pantalla-2024-11-22-202226.png)](https://postimg.cc/SYNw5hz4)
 
 <h2>Ejemplo de ejecución 💻</h2>
 
