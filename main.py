@@ -33,7 +33,7 @@ def agregarExp(listaExp):
     else:
         print('Selección no válida...')
         return
-    
+
     resultados_str = input('Ingrese los resultados, separados con coma (ej : 1,2,3,): ')
     try:
         # Corregido: Usamos split para separar por comas y luego convertir a float
@@ -41,23 +41,23 @@ def agregarExp(listaExp):
     except ValueError:
         print('Los resultados no son validos...')
         return
-    
+
     investigacion = Invetigacion(nombreExp, fechaRealizacion, tipoExp, resultados)
     listaExp.append(investigacion)
     print('Investigacion agregada con exito...')
-    
+
 
 def eliminarEXP(listaExp):
     if not listaExp:
         print('No hay investigaciones registradas...')
         return
-    
+
     nombreExp = input('Ingrese el nombre del experimento que desea eliminar: ')
     for invetigacion in listaExp:
         if invetigacion.nombreExp == nombreExp:
             listaExp.remove(invetigacion)
             print(f'La investigazión {nombreExp} ha sido eliminada con éxito...')
-    
+
     print(f'No se encontró una investigazión con el nombre {nombreExp}...')
 
 
@@ -67,7 +67,7 @@ def visualizarExp(listaExp):
     if not listaExp:
         print('No hay investigaciones registradas...')
         return
-    
+
     datos = []
     for i, investigacion in enumerate(listaExp, start=1):
         datos.append([
@@ -83,27 +83,29 @@ def visualizarExp(listaExp):
     print("\nInvestigaciones Registradas:")
     print(tabulate(datos, headers=headers, tablefmt="grid"))
 
-        
+
 def analizarResultados(listaExp):
     if not listaExp:
         print('No hay investigaciones registradas...')
         return
-    
+
     datos = []
     for investigacion in listaExp:
         promedio = statistics.mean(investigacion.resultados)
         maximo = max(investigacion.resultados)
         minimo = min(investigacion.resultados)
+        desviacion=statistics.stdev(investigacion.resultados)
         datos.append([
             investigacion.nombreExp,
             investigacion.fechaRealizacion.strftime('%d/%m/%Y'),
             investigacion.tipoExp,
             f'{promedio:.2f}', 
             maximo,
-            minimo
+            minimo,
+            desviacion
         ])
-        
-    headers = ["Nombre", "Fecha", "Tipo", "Promedio", "Máximo", "Mínimo"]
+
+    headers = ["Nombre", "Fecha", "Tipo", "Promedio", "Máximo", "Mínimo","Desviacion"]
 
     print("\nAnálisis de Resultados:")
     print(tabulate(datos, headers=headers, tablefmt="grid"))
@@ -113,28 +115,45 @@ def compararResultados(listaExp):
     if not listaExp:
         print('No hay investigaciones registradas...')
         return
-    
-    datos = []
-    for i, investigacion in enumerate(listaExp, start=1):
-        promedio = statistics.mean(investigacion.resultados)
-        maximo = max(investigacion.resultados)
-        minimo = min(investigacion.resultados)
-        
-        datos.append([
-            i,
-            investigacion.nombreExp,
-            investigacion.tipoExp,
-            round(promedio, 2),
-            maximo,
-            minimo
-        ])
-    
-    headers = ["#", "Nombre", "Tipo", "Promedio", "Máximo", "Mínimo"]
+    print("Seleccione el tipo de experimento a comparar:")
+    print("1. Química")
+    print("2. Física")
+    print("3. Biología")
+    tipoExp = input("Ingrese el número correspondiente al tipo de experimento: ")
 
-    print("\nComparación de Resultados:")
-    print(tabulate(datos, headers=headers, tablefmt="grid"))
-        
-        
+    if tipoExp == '1':
+        tipoExp = 'Química'
+    elif tipoExp == '2':
+        tipoExp = 'Física'
+    elif tipoExp == '3':
+        tipoExp = 'Biología'
+    elMenor=100000000
+    for i, investigacion in enumerate(listaExp, start=1):
+        if tipoExp==investigacion.tipoExp:
+            promedio = statistics.mean(investigacion.resultados)
+            maximo = max(investigacion.resultados)
+            minimo = min(investigacion.resultados)
+            desviacionr=statistics.stdev(investigacion.resultados)
+            if desviacionr<=elMenor:
+                elMenor=desviacionr
+                elPromedio=promedio
+                elMinimo=minimo
+                eLmaximo=maximo
+                elNumero=i
+                elNombre=investigacion.nombreExp,
+                laFeha=investigacion.fechaRealizacion.strftime('%d/%m/%Y'),
+                elTipo=investigacion.tipoExp
+        else:
+            print('No hay registros para este tipo')
+    print(f'el dato con mejor desviación estandar es :')
+    print(f'{elNumero} Nombre : {elNombre} fecha : {laFeha} tipo: {elTipo}')
+    print(f'Promedio : {elPromedio}\n maximo : {eLmaximo} minimo : {elMinimo} desviacion : {elMenor}')
+
+    
+ #   print("\nComparación de Resultados:")
+ #   print(tabulate(datos, headers=headers, tablefmt="grid"))
+
+
 def generarInf(listaExp):
     if not listaExp:
         print('No hay investigaciones registradas...')
