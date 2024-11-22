@@ -176,7 +176,7 @@ def menu():
         print('2. Ver investigaciones')
         print('3. Eliminar investigaciones')
         print('4. Analizar resultados')
-        print('5. Compara resultados')
+        print('5. Comparar resultados')
         print('6. Generar informe')
         print('7. Salir')
         
