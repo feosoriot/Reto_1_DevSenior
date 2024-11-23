@@ -144,14 +144,14 @@ def compararResultados(listaExp):
                 laFeha=investigacion.fechaRealizacion.strftime('%d/%m/%Y'),
                 elTipo=investigacion.tipoExp
         else:
-            print('No hay registros para este tipo')
-    print(f'el dato con mejor desviación estandar es :')
-    print(f'{elNumero} Nombre : {elNombre} fecha : {laFeha} tipo: {elTipo}')
-    print(f'Promedio : {elPromedio}\n maximo : {eLmaximo} minimo : {elMinimo} desviacion : {elMenor}')
-
-    
- #   print("\nComparación de Resultados:")
- #   print(tabulate(datos, headers=headers, tablefmt="grid"))
+            elTipo="No existe"
+    if elTipo=="No existe":
+        print('El tipo de experimento no tiene datos registrados')
+    else:
+        print(f'el dato con mejor desviación estandar es :')
+        print(f'{elNumero} Nombre : {elNombre} fecha : {laFeha} tipo: {elTipo}')
+        print(f'Promedio : {elPromedio}\n maximo : {eLmaximo} minimo : {elMinimo} desviacion : {elMenor}')
+        print('No se encontro el tipo de experimento registrado')
 
 
 def generarInf(listaExp):
@@ -176,7 +176,7 @@ def menu():
         print('2. Ver investigaciones')
         print('3. Eliminar investigaciones')
         print('4. Analizar resultados')
-        print('5. Compara resultados')
+        print('5. Comparar resultados')
         print('6. Generar informe')
         print('7. Salir')
         
