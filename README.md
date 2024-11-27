@@ -37,7 +37,7 @@ Este es un proyecto creado en Python para la gestión de de experimentos, en el 
 1. Ejecutar el archivo main.py para iniciar el programa.
 2. Al iniciar el archivo main.py podemos ver el suguiente menu: 
 
-    [![Captura-de-pantalla-2024-11-22-202226.png](https://i.postimg.cc/PqrWKN0k/Captura-de-pantalla-2024-11-22-202226.png)](https://postimg.cc/WdCq1p29)
+    ![alt text](image.png)
 
 <h2>Ejemplo de ejecución 💻</h2>
 
