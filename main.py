@@ -170,14 +170,17 @@ def generarInf(listaExp):
 def menu():
     listaExp = []
     while True:
-        print('\nMenu de opciones')
-        print('1. Agregar investigación')
-        print('2. Ver investigaciones')
-        print('3. Eliminar investigaciones')
-        print('4. Analizar resultados')
-        print('5. Comparar resultados')
-        print('6. Generar informe')
-        print('7. Salir')
+        print('\033[1;36m==============================\033[0m')
+        print('|       Menu de opciones     |')
+        print('\033[1;36m==============================\033[0m')
+        print('|1. Agregar investigación    |')
+        print('|2. Ver investigaciones      |')
+        print('|3. Eliminar investigaciones |')
+        print('|4. Analizar resultados      |')
+        print('|5. Comparar resultados      |')
+        print('|6. Generar informe          |')
+        print('|7. Salir                    |')
+        print('\033[1;36m==============================\033[0m')
         
         opcion = input('Seleccione una opción: ')
 
