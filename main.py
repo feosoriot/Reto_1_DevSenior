@@ -36,7 +36,6 @@ def agregarExp(listaExp):
 
     resultados_str = input('Ingrese los resultados, separados con coma (ej : 1,2,3,): ')
     try:
-        # Corregido: Usamos split para separar por comas y luego convertir a float
         resultados = list(map(float, resultados_str.split(',')))
     except ValueError:
         print('Los resultados no son validos...')
